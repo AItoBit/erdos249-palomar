@@ -50,11 +50,12 @@ theorem tsum_mem_Ioo :
       norm_num
     have hpartial : ∑ n ∈ Finset.range 5, (n.totient : ℝ) / (2 : ℝ) ^ n = (9 : ℝ) / 8 := by
       simp [Finset.sum_range_succ, Nat.totient_zero, Nat.totient_one, Nat.totient_two, hφ3, hφ4]
-        <;> norm_num
+      norm_num
     have hle := term_summable.sum_le_tsum (Finset.range 5) fun _ _ ↦ hf _
     exact lt_of_lt_of_le (by norm_num : (1 : ℝ) < 9 / 8) (hpartial.symm.trans_le hle)
   · have hstrict : (Nat.totient 2 : ℝ) / (2 : ℝ) ^ 2 < (2 : ℝ) * (1 / 2 : ℝ) ^ 2 := by
-      simp [Nat.totient_two] <;> norm_num
+      simp [Nat.totient_two]
+      norm_num
     have hlt := Summable.tsum_lt_tsum_of_nonneg (i := 2) hf term_le hstrict geometric_summable
     have hgval := tsum_coe_mul_geometric_of_norm_lt_one (𝕜 := ℝ) hr
     have htwo : (1 / 2 : ℝ) / (1 - 1 / 2) ^ 2 = 2 := by norm_num

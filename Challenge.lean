@@ -4,7 +4,8 @@ public import Mathlib.Analysis.SpecificLimits.Normed
 public import Mathlib.Data.Nat.Totient
 public import Mathlib.Topology.Algebra.InfiniteSum.Real
 
-public section
+-- Expose the body of `erdos249Sum` so Comparator can match it with Solution.
+@[expose] public section
 
 /-!
 # Erdős problem 249: the totient series
@@ -41,7 +42,8 @@ theorem erdos249Sum_summable : Summable fun n : ℕ ↦ (n.totient : ℝ) / (2 :
 $1 < \sum \varphi(n)/2^n < 2$. In particular the sum is not an integer.
 This does not decide whether the sum is irrational.
 -/
-theorem erdos249Sum_mem_Ioo : erdos249Sum ∈ Set.Ioo (1 : ℝ) 2 := by
+theorem erdos249Sum_mem_Ioo :
+    (∑' n : ℕ, (n.totient : ℝ) / (2 : ℝ) ^ n) ∈ Set.Ioo (1 : ℝ) 2 := by
   sorry
 
 end Erdos249
