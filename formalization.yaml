@@ -1,0 +1,143 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+# formalization.yaml v0.4
+version: "v0.4"
+
+project:
+  name: "Erdős 249 totient series: convergence and the interval (1, 2)"
+  description: >-
+    Formalizes two classical facts about the series ∑ φ(n)/2^n that appears
+    in Erdős problem 249: the series of real terms converges, and its sum
+    lies strictly between 1 and 2. The file does not prove that the sum is
+    irrational; that question remains open.
+  authors:
+    - "AItoBit"
+  license: "Apache-2.0"
+  responsible_maintainers:
+    - "AItoBit"
+
+classification:
+  arxiv: ["math.NT"]
+  msc2020: ["11A25", "11J72"]
+
+sources:
+  - title: "Erdős Problem 249"
+    authors:
+      - "Paul Erdős"
+    contributors:
+      - name: "Thomas Bloom"
+        role: "problem-list editor"
+    id: "https://www.erdosproblems.com/249"
+    type: "web post"
+    location: "https://www.erdosproblems.com/249"
+    relationship: "background"
+    license: "unknown"
+    author_endorsement: "n/a"
+    note: >-
+      States the open question of whether the totient series is irrational.
+      This formalization records only the classical convergence and bound
+      that make the series a well-defined real in (1, 2).
+  - title: "Old and new problems and results in combinatorial number theory"
+    authors:
+      - "Paul Erdős"
+      - "Ronald L. Graham"
+    id: "ErGr80"
+    type: "book"
+    location: "Monographies de L'Enseignement Mathématique (1980), p. 61"
+    relationship: "background"
+    license: "unknown"
+    author_endorsement: "n/a"
+  - title: "On the irrationality of certain series: problems and results"
+    authors:
+      - "Paul Erdős"
+    id: "Er88c"
+    type: "article"
+    location: "New advances in transcendence theory (Durham, 1986) (1988), 102-109"
+    relationship: "background"
+    license: "unknown"
+    author_endorsement: "n/a"
+  - title: "The decimal expansion of Sum_{n>=1} phi(n)/2^n"
+    authors:
+      - "OEIS contributors"
+    id: "https://oeis.org/A256936"
+    type: "web post"
+    location: "https://oeis.org/A256936"
+    relationship: "background"
+    license: "unknown"
+    author_endorsement: "n/a"
+  - title: "Convergence of ∑ φ(n)/2^n and the bound 1 < S < 2"
+    type: "folklore"
+    relationship: "independently-proves"
+    note: >-
+      The comparison φ(n) ≤ n and the evaluation ∑ n x^n = x/(1-x)^2 at
+      x = 1/2 are standard. The lower bound uses the partial sum through
+      n = 4, which equals 9/8.
+
+related_formalizations:
+  - id: "https://github.com/google-deepmind/formal-conjectures/blob/main/FormalConjectures/ErdosProblems/249.lean"
+    relationship: "independent"
+    note: >-
+      Statement-only formalization of the open irrationality question in
+      Formal Conjectures. This repository proves supporting facts and does
+      not claim the open problem.
+
+status:
+  scope: >-
+    Proved: the real series ∑ φ(n)/2^n is summable, and its sum lies in
+    the open interval (1, 2). Not proved: irrationality of the sum, which
+    is the open Erdős problem 249. The sum is indexed over ℕ; the n = 0
+    term is zero because φ(0) = 0.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: []
+  main_results:
+    - "The series ∑ φ(n)/2^n converges in ℝ."
+    - "Its sum S satisfies 1 < S < 2, so S is not an integer."
+
+automation:
+  methods:
+    - method: "agent"
+      models: ["Cursor Grok 4.6"]
+      framework: "Cursor"
+      tool_setup: "AI-assisted Lean 4 formalization against Mathlib, with human review of the open-problem boundary"
+      cost:
+        wall_time: "one working session"
+        spend_usd: "subscription-based"
+        hardware: "local machine"
+      prompting_notes: "Formalize Erdős 249 without claiming a proof of the open irrationality question."
+  spend_usd: "subscription-based"
+  notes: >-
+    An agent drafted the Lean statements and proofs from Mathlib lemmas on
+    totients and geometric series. The open irrationality question is left
+    unproved.
+
+fidelity:
+  divergences: >-
+    The source asks whether the sum is irrational. This formalization does
+    not answer that question. It proves only convergence and the bound
+    1 < S < 2. The Lean sum starts at n = 0; this agrees with the usual
+    sum from n = 1 because φ(0) = 0.
+
+review:
+  status: "self-assessed"
+  reviewers:
+    - "none"
+  notes: >-
+    The Challenge statements were checked against erdosproblems.com/249.
+    The advertised theorems are classical supporting facts, not a solution
+    of the open problem.
+
+alignment:
+  namespace: "Erdos249"
+  statements:
+    - source: "Classical comparison: φ(n) ≤ n and ∑ n/2^n < ∞"
+      lean: "Erdos249.erdos249Sum_summable"
+      module: "Challenge"
+      status: "proved"
+      note: "Convergence of the real series used to define the Erdős 249 constant."
+    - source: "Partial-sum lower bound 9/8 and geometric upper bound 2"
+      lean: "Erdos249.erdos249Sum_mem_Ioo"
+      module: "Challenge"
+      status: "proved"
+      note: "Shows the sum is not an integer. Does not imply irrationality."
+
+acknowledgements: "Mathlib, the Palomar template, and the Formal Conjectures project."
