@@ -52,13 +52,13 @@ theorem tsum_mem_Ioo :
       simp [Finset.sum_range_succ, Nat.totient_zero, Nat.totient_one, Nat.totient_two, hφ3, hφ4]
       norm_num
     have hle := term_summable.sum_le_tsum (Finset.range 5) fun _ _ ↦ hf _
-    linarith [hpartial.trans_le hle]
-  · have hlt := Summable.tsum_lt_tsum_of_nonneg (i := 2) hf term_le ?_ geometric_summable
-    · have hgval : (∑' n : ℕ, (n : ℝ) * (1 / 2 : ℝ) ^ n) = 2 := by
-        have := tsum_coe_mul_geometric_of_norm_lt_one (𝕜 := ℝ) hr
-        simpa using this
-      linarith
-    · simp [Nat.totient_two]
+    exact lt_of_lt_of_le (by norm_num : (1 : ℝ) < 9 / 8) (hpartial.symm.trans_le hle)
+  · have hstrict : (Nat.totient 2 : ℝ) / (2 : ℝ) ^ 2 < (2 : ℝ) * (1 / 2 : ℝ) ^ 2 := by
+      simp [Nat.totient_two]
       norm_num
+    have hlt := Summable.tsum_lt_tsum_of_nonneg (i := 2) hf term_le hstrict geometric_summable
+    have hgval := tsum_coe_mul_geometric_of_norm_lt_one (𝕜 := ℝ) hr
+    have htwo : (1 / 2 : ℝ) / (1 - 1 / 2) ^ 2 = 2 := by norm_num
+    exact hlt.trans_eq (hgval.trans htwo)
 
 end Erdos249
