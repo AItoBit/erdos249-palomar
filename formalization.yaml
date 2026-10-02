@@ -27,7 +27,7 @@ sources:
       - name: "Thomas Bloom"
         role: "problem-list editor"
     id: "https://www.erdosproblems.com/249"
-    type: "web post"
+    type: "web discussion"
     location: "https://www.erdosproblems.com/249"
     relationship: "background"
     license: "unknown"
@@ -50,7 +50,7 @@ sources:
     authors:
       - "Paul Erdős"
     id: "Er88c"
-    type: "article"
+    type: "paper"
     location: "New advances in transcendence theory (Durham, 1986) (1988), 102-109"
     relationship: "background"
     license: "unknown"
@@ -59,7 +59,7 @@ sources:
     authors:
       - "OEIS contributors"
     id: "https://oeis.org/A256936"
-    type: "web post"
+    type: "web discussion"
     location: "https://oeis.org/A256936"
     relationship: "background"
     license: "unknown"
